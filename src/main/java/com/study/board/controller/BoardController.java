@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class BoardController {
     @Autowired
     private BoardService boardService;
+    @GetMapping("/")
+    public String home() {
+        return "home";
+    }
 
     @GetMapping("/board/write") //localhost:8080/board/write
     public String boardWriteForm() {
@@ -23,10 +27,10 @@ public class BoardController {
     @PostMapping("/board/writepro")
     public String boardWritePro(Board board) {
         boardService.write(board);
-        return "";
+        return "redirect:/board/list";
     }
 
-    @GetMapping("/board/list")
+    @GetMapping("board/list")
     public String boardList(Model model) {
         model.addAttribute("list",boardService.boardList());
         return "boardlist";
